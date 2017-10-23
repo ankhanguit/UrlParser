@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> URL|Parser</title> 
+	<link rel="stylesheet" href="libraries/font-awesome-4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="libraries/bootstrap/css/bootstrap.min.css" media="screen"/>
+	<link rel="stylesheet" href="assets/css/style.css"/>
+	<script type="text/javascript" src="libraries/jQuery/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="libraries/bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="libraries/tinymce/js/tinymce/tinymce.min.js"></script>
+	<script type="text/javascript" src="parser.js"></script>
+</head>
+<body>
+	<div class="container">
+	  	<h2>PARSING INFORMATOINS</h2>
+	    <div class="form-group">
+		    <label for="info-type">TYPE:</label>
+		    <select class="selectpicker form-control" data-live-search="true" id="info_type" name="info_type">
+				<option>Zing News</option>
+				<option>Tinh te</option>
+				<option>Dan tri</option>
+			</select>
+	    </div>
+		
+		<div class="form-group">
+		    <label for="info-url">URL:</label>
+	    	<input type="text" class="form-control" id="info_url" name="info_url" required>
+    	</div>
+	    <button class="btn btn-primary"
+	    		data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Parse" 
+	    		id="btn_start">
+	    	START
+	    </button>
+
+		<!-- Modal -->
+		<div class="modal fade" id="info_output_dialog" role="dialog">
+			<div class="modal-dialog modal-lg">
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-body">
+						 <textarea id="info_output_editor"></textarea>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- JQUERY /-->
+	<script type="text/javascript">
+
+		tinymce.init({
+		    selector: '#info_output_editor',
+		    height: 400,
+		    plugins: [
+		      'advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker',
+		      'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking',
+		      'save table contextmenu directionality emoticons template paste textcolor'
+		    ]
+		});
+
+		$( "#btn_start" ).click(function() {
+			if($("#info_url").val() != '') {
+				parse($("#info_url").val(), $("#info_type :selected").text());
+			} else {
+				$("#info_url").prop('required',true);
+			}
+		});
+	</script>
+</body>
+</html>
